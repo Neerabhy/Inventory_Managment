@@ -15,12 +15,15 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppSuppliersRouteImport } from './routes/app.suppliers'
 import { Route as AppReturnsRouteImport } from './routes/app.returns'
+import { Route as AppReportsRouteImport } from './routes/app.reports'
 import { Route as AppProductsRouteImport } from './routes/app.products'
 import { Route as AppProcurementRouteImport } from './routes/app.procurement'
 import { Route as AppLogisticsRouteImport } from './routes/app.logistics'
 import { Route as AppInventoryRouteImport } from './routes/app.inventory'
 import { Route as AppForecastingRouteImport } from './routes/app.forecasting'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppCopilotRouteImport } from './routes/app.copilot'
+import { Route as AppAdminRouteImport } from './routes/app.admin'
 import { Route as AppReturnsIndexRouteImport } from './routes/app.returns.index'
 import { Route as AppProductsIndexRouteImport } from './routes/app.products.index'
 import { Route as AppReturnsHistoryRouteImport } from './routes/app.returns.history'
@@ -56,6 +59,11 @@ const AppReturnsRoute = AppReturnsRouteImport.update({
   path: '/returns',
   getParentRoute: () => AppRoute,
 } as any)
+const AppReportsRoute = AppReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppProductsRoute = AppProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -86,6 +94,16 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCopilotRoute = AppCopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppReturnsIndexRoute = AppReturnsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -112,12 +130,15 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/copilot': typeof AppCopilotRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/forecasting': typeof AppForecastingRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/logistics': typeof AppLogisticsRoute
   '/app/procurement': typeof AppProcurementRoute
   '/app/products': typeof AppProductsRouteWithChildren
+  '/app/reports': typeof AppReportsRoute
   '/app/returns': typeof AppReturnsRouteWithChildren
   '/app/suppliers': typeof AppSuppliersRoute
   '/app/products/$sku': typeof AppProductsSkuRoute
@@ -130,11 +151,14 @@ export interface FileRoutesByTo {
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/copilot': typeof AppCopilotRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/forecasting': typeof AppForecastingRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/logistics': typeof AppLogisticsRoute
   '/app/procurement': typeof AppProcurementRoute
+  '/app/reports': typeof AppReportsRoute
   '/app/suppliers': typeof AppSuppliersRoute
   '/app/products/$sku': typeof AppProductsSkuRoute
   '/app/returns/history': typeof AppReturnsHistoryRoute
@@ -147,12 +171,15 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/copilot': typeof AppCopilotRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/forecasting': typeof AppForecastingRoute
   '/app/inventory': typeof AppInventoryRoute
   '/app/logistics': typeof AppLogisticsRoute
   '/app/procurement': typeof AppProcurementRoute
   '/app/products': typeof AppProductsRouteWithChildren
+  '/app/reports': typeof AppReportsRoute
   '/app/returns': typeof AppReturnsRouteWithChildren
   '/app/suppliers': typeof AppSuppliersRoute
   '/app/products/$sku': typeof AppProductsSkuRoute
@@ -167,12 +194,15 @@ export interface FileRouteTypes {
     | '/app'
     | '/login'
     | '/signup'
+    | '/app/admin'
+    | '/app/copilot'
     | '/app/dashboard'
     | '/app/forecasting'
     | '/app/inventory'
     | '/app/logistics'
     | '/app/procurement'
     | '/app/products'
+    | '/app/reports'
     | '/app/returns'
     | '/app/suppliers'
     | '/app/products/$sku'
@@ -185,11 +215,14 @@ export interface FileRouteTypes {
     | '/app'
     | '/login'
     | '/signup'
+    | '/app/admin'
+    | '/app/copilot'
     | '/app/dashboard'
     | '/app/forecasting'
     | '/app/inventory'
     | '/app/logistics'
     | '/app/procurement'
+    | '/app/reports'
     | '/app/suppliers'
     | '/app/products/$sku'
     | '/app/returns/history'
@@ -201,12 +234,15 @@ export interface FileRouteTypes {
     | '/app'
     | '/login'
     | '/signup'
+    | '/app/admin'
+    | '/app/copilot'
     | '/app/dashboard'
     | '/app/forecasting'
     | '/app/inventory'
     | '/app/logistics'
     | '/app/procurement'
     | '/app/products'
+    | '/app/reports'
     | '/app/returns'
     | '/app/suppliers'
     | '/app/products/$sku'
@@ -266,6 +302,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppReturnsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/reports': {
+      id: '/app/reports'
+      path: '/reports'
+      fullPath: '/app/reports'
+      preLoaderRoute: typeof AppReportsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/products': {
       id: '/app/products'
       path: '/products'
@@ -306,6 +349,20 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/app/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/copilot': {
+      id: '/app/copilot'
+      path: '/copilot'
+      fullPath: '/app/copilot'
+      preLoaderRoute: typeof AppCopilotRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/admin': {
+      id: '/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/returns/': {
@@ -368,23 +425,29 @@ const AppReturnsRouteWithChildren = AppReturnsRoute._addFileChildren(
 )
 
 interface AppRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
+  AppCopilotRoute: typeof AppCopilotRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppForecastingRoute: typeof AppForecastingRoute
   AppInventoryRoute: typeof AppInventoryRoute
   AppLogisticsRoute: typeof AppLogisticsRoute
   AppProcurementRoute: typeof AppProcurementRoute
   AppProductsRoute: typeof AppProductsRouteWithChildren
+  AppReportsRoute: typeof AppReportsRoute
   AppReturnsRoute: typeof AppReturnsRouteWithChildren
   AppSuppliersRoute: typeof AppSuppliersRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
+  AppCopilotRoute: AppCopilotRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppForecastingRoute: AppForecastingRoute,
   AppInventoryRoute: AppInventoryRoute,
   AppLogisticsRoute: AppLogisticsRoute,
   AppProcurementRoute: AppProcurementRoute,
   AppProductsRoute: AppProductsRouteWithChildren,
+  AppReportsRoute: AppReportsRoute,
   AppReturnsRoute: AppReturnsRouteWithChildren,
   AppSuppliersRoute: AppSuppliersRoute,
 }
