@@ -13,8 +13,18 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppSuppliersRouteImport } from './routes/app.suppliers'
+import { Route as AppReturnsRouteImport } from './routes/app.returns'
+import { Route as AppProductsRouteImport } from './routes/app.products'
+import { Route as AppProcurementRouteImport } from './routes/app.procurement'
+import { Route as AppLogisticsRouteImport } from './routes/app.logistics'
 import { Route as AppInventoryRouteImport } from './routes/app.inventory'
+import { Route as AppForecastingRouteImport } from './routes/app.forecasting'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppReturnsIndexRouteImport } from './routes/app.returns.index'
+import { Route as AppProductsIndexRouteImport } from './routes/app.products.index'
+import { Route as AppReturnsHistoryRouteImport } from './routes/app.returns.history'
+import { Route as AppProductsSkuRouteImport } from './routes/app.products.$sku'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -36,15 +46,65 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppSuppliersRoute = AppSuppliersRouteImport.update({
+  id: '/suppliers',
+  path: '/suppliers',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReturnsRoute = AppReturnsRouteImport.update({
+  id: '/returns',
+  path: '/returns',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProductsRoute = AppProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProcurementRoute = AppProcurementRouteImport.update({
+  id: '/procurement',
+  path: '/procurement',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLogisticsRoute = AppLogisticsRouteImport.update({
+  id: '/logistics',
+  path: '/logistics',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppInventoryRoute = AppInventoryRouteImport.update({
   id: '/inventory',
   path: '/inventory',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppForecastingRoute = AppForecastingRouteImport.update({
+  id: '/forecasting',
+  path: '/forecasting',
   getParentRoute: () => AppRoute,
 } as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AppRoute,
+} as any)
+const AppReturnsIndexRoute = AppReturnsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppReturnsRoute,
+} as any)
+const AppProductsIndexRoute = AppProductsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppProductsRoute,
+} as any)
+const AppReturnsHistoryRoute = AppReturnsHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AppReturnsRoute,
+} as any)
+const AppProductsSkuRoute = AppProductsSkuRouteImport.update({
+  id: '/$sku',
+  path: '/$sku',
+  getParentRoute: () => AppProductsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -53,7 +113,17 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/forecasting': typeof AppForecastingRoute
   '/app/inventory': typeof AppInventoryRoute
+  '/app/logistics': typeof AppLogisticsRoute
+  '/app/procurement': typeof AppProcurementRoute
+  '/app/products': typeof AppProductsRouteWithChildren
+  '/app/returns': typeof AppReturnsRouteWithChildren
+  '/app/suppliers': typeof AppSuppliersRoute
+  '/app/products/$sku': typeof AppProductsSkuRoute
+  '/app/returns/history': typeof AppReturnsHistoryRoute
+  '/app/products/': typeof AppProductsIndexRoute
+  '/app/returns/': typeof AppReturnsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +131,15 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/forecasting': typeof AppForecastingRoute
   '/app/inventory': typeof AppInventoryRoute
+  '/app/logistics': typeof AppLogisticsRoute
+  '/app/procurement': typeof AppProcurementRoute
+  '/app/suppliers': typeof AppSuppliersRoute
+  '/app/products/$sku': typeof AppProductsSkuRoute
+  '/app/returns/history': typeof AppReturnsHistoryRoute
+  '/app/products': typeof AppProductsIndexRoute
+  '/app/returns': typeof AppReturnsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,7 +148,17 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/forecasting': typeof AppForecastingRoute
   '/app/inventory': typeof AppInventoryRoute
+  '/app/logistics': typeof AppLogisticsRoute
+  '/app/procurement': typeof AppProcurementRoute
+  '/app/products': typeof AppProductsRouteWithChildren
+  '/app/returns': typeof AppReturnsRouteWithChildren
+  '/app/suppliers': typeof AppSuppliersRoute
+  '/app/products/$sku': typeof AppProductsSkuRoute
+  '/app/returns/history': typeof AppReturnsHistoryRoute
+  '/app/products/': typeof AppProductsIndexRoute
+  '/app/returns/': typeof AppReturnsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,9 +168,33 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/dashboard'
+    | '/app/forecasting'
     | '/app/inventory'
+    | '/app/logistics'
+    | '/app/procurement'
+    | '/app/products'
+    | '/app/returns'
+    | '/app/suppliers'
+    | '/app/products/$sku'
+    | '/app/returns/history'
+    | '/app/products/'
+    | '/app/returns/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/login' | '/signup' | '/app/dashboard' | '/app/inventory'
+  to:
+    | '/'
+    | '/app'
+    | '/login'
+    | '/signup'
+    | '/app/dashboard'
+    | '/app/forecasting'
+    | '/app/inventory'
+    | '/app/logistics'
+    | '/app/procurement'
+    | '/app/suppliers'
+    | '/app/products/$sku'
+    | '/app/returns/history'
+    | '/app/products'
+    | '/app/returns'
   id:
     | '__root__'
     | '/'
@@ -90,7 +202,17 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/dashboard'
+    | '/app/forecasting'
     | '/app/inventory'
+    | '/app/logistics'
+    | '/app/procurement'
+    | '/app/products'
+    | '/app/returns'
+    | '/app/suppliers'
+    | '/app/products/$sku'
+    | '/app/returns/history'
+    | '/app/products/'
+    | '/app/returns/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,11 +252,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/suppliers': {
+      id: '/app/suppliers'
+      path: '/suppliers'
+      fullPath: '/app/suppliers'
+      preLoaderRoute: typeof AppSuppliersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/returns': {
+      id: '/app/returns'
+      path: '/returns'
+      fullPath: '/app/returns'
+      preLoaderRoute: typeof AppReturnsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/products': {
+      id: '/app/products'
+      path: '/products'
+      fullPath: '/app/products'
+      preLoaderRoute: typeof AppProductsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/procurement': {
+      id: '/app/procurement'
+      path: '/procurement'
+      fullPath: '/app/procurement'
+      preLoaderRoute: typeof AppProcurementRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/logistics': {
+      id: '/app/logistics'
+      path: '/logistics'
+      fullPath: '/app/logistics'
+      preLoaderRoute: typeof AppLogisticsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/inventory': {
       id: '/app/inventory'
       path: '/inventory'
       fullPath: '/app/inventory'
       preLoaderRoute: typeof AppInventoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/forecasting': {
+      id: '/app/forecasting'
+      path: '/forecasting'
+      fullPath: '/app/forecasting'
+      preLoaderRoute: typeof AppForecastingRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/dashboard': {
@@ -144,17 +308,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/returns/': {
+      id: '/app/returns/'
+      path: '/'
+      fullPath: '/app/returns/'
+      preLoaderRoute: typeof AppReturnsIndexRouteImport
+      parentRoute: typeof AppReturnsRoute
+    }
+    '/app/products/': {
+      id: '/app/products/'
+      path: '/'
+      fullPath: '/app/products/'
+      preLoaderRoute: typeof AppProductsIndexRouteImport
+      parentRoute: typeof AppProductsRoute
+    }
+    '/app/returns/history': {
+      id: '/app/returns/history'
+      path: '/history'
+      fullPath: '/app/returns/history'
+      preLoaderRoute: typeof AppReturnsHistoryRouteImport
+      parentRoute: typeof AppReturnsRoute
+    }
+    '/app/products/$sku': {
+      id: '/app/products/$sku'
+      path: '/$sku'
+      fullPath: '/app/products/$sku'
+      preLoaderRoute: typeof AppProductsSkuRouteImport
+      parentRoute: typeof AppProductsRoute
+    }
   }
 }
 
+interface AppProductsRouteChildren {
+  AppProductsSkuRoute: typeof AppProductsSkuRoute
+  AppProductsIndexRoute: typeof AppProductsIndexRoute
+}
+
+const AppProductsRouteChildren: AppProductsRouteChildren = {
+  AppProductsSkuRoute: AppProductsSkuRoute,
+  AppProductsIndexRoute: AppProductsIndexRoute,
+}
+
+const AppProductsRouteWithChildren = AppProductsRoute._addFileChildren(
+  AppProductsRouteChildren,
+)
+
+interface AppReturnsRouteChildren {
+  AppReturnsHistoryRoute: typeof AppReturnsHistoryRoute
+  AppReturnsIndexRoute: typeof AppReturnsIndexRoute
+}
+
+const AppReturnsRouteChildren: AppReturnsRouteChildren = {
+  AppReturnsHistoryRoute: AppReturnsHistoryRoute,
+  AppReturnsIndexRoute: AppReturnsIndexRoute,
+}
+
+const AppReturnsRouteWithChildren = AppReturnsRoute._addFileChildren(
+  AppReturnsRouteChildren,
+)
+
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppForecastingRoute: typeof AppForecastingRoute
   AppInventoryRoute: typeof AppInventoryRoute
+  AppLogisticsRoute: typeof AppLogisticsRoute
+  AppProcurementRoute: typeof AppProcurementRoute
+  AppProductsRoute: typeof AppProductsRouteWithChildren
+  AppReturnsRoute: typeof AppReturnsRouteWithChildren
+  AppSuppliersRoute: typeof AppSuppliersRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppForecastingRoute: AppForecastingRoute,
   AppInventoryRoute: AppInventoryRoute,
+  AppLogisticsRoute: AppLogisticsRoute,
+  AppProcurementRoute: AppProcurementRoute,
+  AppProductsRoute: AppProductsRouteWithChildren,
+  AppReturnsRoute: AppReturnsRouteWithChildren,
+  AppSuppliersRoute: AppSuppliersRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -168,3 +400,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
