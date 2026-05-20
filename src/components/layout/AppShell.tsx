@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   Boxes,
@@ -19,11 +19,13 @@ import {
   Moon,
   Command,
   CircleUser,
+  LogOut,
   Boxes as Logo,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, type ReactNode } from "react";
 import { useTheme } from "@/lib/theme";
+import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -58,6 +60,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { theme, toggle } = useTheme();
+  const { user, logout } = useAuth();
+  const nav = useNavigate();
+  const displayName = user?.full_name || user?.username || "User";
+  const initials = displayName.split(/\s+/).map((s) => s[0]).filter(Boolean).slice(0, 2).join("").toUpperCase() || "U";
+  const role = (user?.roles && user.roles[0]) || user?.department || "Member";
 
   return (
     <div className="flex min-h-screen w-full bg-background text-foreground">
@@ -192,21 +199,23 @@ export function AppShell({ children }: { children: ReactNode }) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="gap-2 pl-2 pr-3">
                 <div className="w-7 h-7 rounded-full gradient-primary grid place-items-center text-primary-foreground text-xs font-semibold">
-                  AK
+                  {initials}
                 </div>
                 <div className="hidden sm:flex flex-col items-start">
-                  <span className="text-xs font-medium leading-none">Aarav Kapoor</span>
-                  <span className="text-[10px] text-muted-foreground">Ops Lead</span>
+                  <span className="text-xs font-medium leading-none">{displayName}</span>
+                  <span className="text-[10px] text-muted-foreground">{role}</span>
                 </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{user?.email || "My Account"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem><CircleUser className="w-4 h-4 mr-2" />Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild><Link to="/login">Sign out</Link></DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { logout(); nav({ to: "/login" }); }}>
+                <LogOut className="w-4 h-4 mr-2" />Sign out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
