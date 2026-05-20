@@ -76,10 +76,17 @@ function Login() {
 
           <form onSubmit={submit} className="mt-6 space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="email">Work email</Label>
+              <Label htmlFor="username">Username</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="email" type="email" required defaultValue="aarav@inventorycopilot.ai" className="pl-9 h-11 bg-background/50" />
+                <Input
+                  id="username"
+                  required
+                  autoComplete="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="pl-9 h-11 bg-background/50"
+                />
               </div>
             </div>
             <div className="space-y-1.5">
@@ -89,7 +96,15 @@ function Login() {
               </div>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="password" type={show ? "text" : "password"} required defaultValue="••••••••" className="pl-9 pr-9 h-11 bg-background/50" />
+                <Input
+                  id="password"
+                  type={show ? "text" : "password"}
+                  required
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-9 pr-9 h-11 bg-background/50"
+                />
                 <button type="button" onClick={() => setShow((s) => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                   {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
