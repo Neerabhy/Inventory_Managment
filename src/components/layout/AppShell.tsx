@@ -199,21 +199,23 @@ export function AppShell({ children }: { children: ReactNode }) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="gap-2 pl-2 pr-3">
                 <div className="w-7 h-7 rounded-full gradient-primary grid place-items-center text-primary-foreground text-xs font-semibold">
-                  AK
+                  {initials}
                 </div>
                 <div className="hidden sm:flex flex-col items-start">
-                  <span className="text-xs font-medium leading-none">Aarav Kapoor</span>
-                  <span className="text-[10px] text-muted-foreground">Ops Lead</span>
+                  <span className="text-xs font-medium leading-none">{displayName}</span>
+                  <span className="text-[10px] text-muted-foreground">{role}</span>
                 </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{user?.email || "My Account"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem><CircleUser className="w-4 h-4 mr-2" />Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild><Link to="/login">Sign out</Link></DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { logout(); nav({ to: "/login" }); }}>
+                <LogOut className="w-4 h-4 mr-2" />Sign out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
