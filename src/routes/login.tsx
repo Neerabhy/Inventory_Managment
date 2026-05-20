@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
+import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Sign in — AI Inventory Copilot" }, { name: "description", content: "Sign in to AI Inventory Copilot." }] }),
@@ -15,16 +16,24 @@ export const Route = createFileRoute("/login")({
 
 function Login() {
   const nav = useNavigate();
+  const { login } = useAuth();
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("sys.admin");
+  const [password, setPassword] = useState("");
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      toast.success("Welcome back, Aarav");
+    try {
+      await login(username, password);
+      toast.success("Signed in");
       nav({ to: "/app/dashboard" });
-    }, 700);
+    } catch (err: any) {
+      toast.error(err?.message || "Sign in failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
