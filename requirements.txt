@@ -1,0 +1,16 @@
+fastapi==0.110.0
+uvicorn==0.28.0
+pydantic==2.6.4
+pydantic-settings==2.2.1
+SQLAlchemy==2.0.28
+aiosqlite==0.20.0
+pyjwt[crypto]==2.8.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.1.2
+openai==1.14.1
+pandas==2.2.1
+numpy==1.26.4
+prophet==1.1.5
+xgboost==2.0.3
+scikit-learn==1.4.1.post1
+python-multipart==0.0.9

@@ -1,0 +1,5 @@
+# ElectroInventory v3 — ML Model Artifacts placeholder
+# Place trained model files here:
+#   cost_model.json          — XGBoost logistics cost model
+#   return_classifier.json   — XGBoost return risk classifier
+#   isolation_forest.pkl     — Isolation Forest anomaly detector
