@@ -60,6 +60,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { theme, toggle } = useTheme();
+  const { user, logout } = useAuth();
+  const nav = useNavigate();
+  const displayName = user?.full_name || user?.username || "User";
+  const initials = displayName.split(/\s+/).map((s) => s[0]).filter(Boolean).slice(0, 2).join("").toUpperCase() || "U";
+  const role = (user?.roles && user.roles[0]) || user?.department || "Member";
 
   return (
     <div className="flex min-h-screen w-full bg-background text-foreground">
