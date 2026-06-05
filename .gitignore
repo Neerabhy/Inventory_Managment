@@ -25,6 +25,7 @@ htmlcov/
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+!inventory-database/electronics_inventory_v3.db
 
 # Node
 node_modules/
@@ -48,7 +49,3 @@ Thumbs.db
 # Generated artifacts
 generated-reports/
 *.tmp
-
-.DS_Store
-Inventory_Managment/
-"@ | Out-File -Encoding utf8 .gitignore
