@@ -3,9 +3,16 @@ __pycache__/
 *.pyc
 .venv/
 env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Environment
 .env
+.env.*
+!.env.example
 
 # Logs
 *.log
@@ -13,15 +20,35 @@ env/
 # Database
 *.db
 *.sqlite3
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
 
 # Node
 node_modules/
 dist/
 build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # IDE
 .vscode/
 .idea/
+.cursor/
 
 # OS
 .DS_Store
+Thumbs.db
+
+# Generated artifacts
+generated-reports/
+*.tmp
+
+.DS_Store
+Inventory_Managment/
+"@ | Out-File -Encoding utf8 .gitignore
